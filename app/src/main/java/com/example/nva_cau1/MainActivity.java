@@ -1,19 +1,23 @@
 package com.example.nva_cau1;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.os.Build;
+import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
-    private Button btnDangNhap;
+    private Button btnDangNhap,btnThoat;
+    private Dialog dialog;
     private CheckBox checkBoxLuuThongTin;
 
     @Override
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnDangNhap=findViewById(R.id.btnDangNhap);
+        btnThoat=findViewById(R.id.btnThoat);
         checkBoxLuuThongTin=findViewById(R.id.checkBoxLuuThongTin);
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -34,5 +39,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        btnThoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAlertDialog();
+            }
+        });
+    }
+    public void showAlertDialog(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Thong Bao");
+        builder.setIcon(R.drawable.alert_icon);
+        builder.setMessage("Ban co muon thoat khong");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Khong", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this,"Khong thoat duoc",Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton("Co", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
     }
 }
